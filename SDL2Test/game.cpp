@@ -1,9 +1,12 @@
 #include "Game.h"
+#include "TextureManager.h"
+
+SDL_Texture* playerTexture;
+SDL_Rect srcRect, destRect;
 
 Game::Game() {
 }
 Game::~Game() {
-
 }
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
@@ -25,7 +28,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer) {
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-			std::cout << "Rednerer created" << std::endl;
+			std::cout << "Renderer created" << std::endl;
 		}
 
 		isRunning = true;
@@ -33,6 +36,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	else {
 		isRunning = false;
 	}
+
+	playerTexture = TextureManager::LoadTexture("assets/mario.png", renderer);
 
 }
 
@@ -56,6 +61,9 @@ void Game::handleEvents() {
 void Game::update() {
 
 	count++;
+	destRect.h = 32;
+	destRect.w = 32;
+	destRect.x = count;
 	std::cout << count << std::endl;
 
 }
@@ -63,6 +71,7 @@ void Game::update() {
 void Game::render() {
 
 	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, playerTexture, NULL, &destRect);
 	SDL_RenderPresent(renderer);
 
 }
