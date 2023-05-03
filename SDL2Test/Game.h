@@ -13,17 +13,14 @@ public:
 	void handleEvents();
 	void update();
 	void render();
-
-	//SDL_Texture* LoadTexture(const char* p_filePath);
-
 	void clean();
 	bool running();
 
+	static SDL_Renderer* renderer;
 		
 private:
 	int count = 0;
 	bool isRunning;
 	SDL_Window* window;
-	SDL_Renderer* renderer;
 
 };

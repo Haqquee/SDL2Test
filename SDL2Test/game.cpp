@@ -1,10 +1,17 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "Map.h"
+#include "ECS.h"
+#include "Components.h"
 
 GameObject* player;
 GameObject* player2;
+Map* map;
 
+SDL_Renderer* Game::renderer = nullptr;
+Manager manager;
+auto& newPlayer(manager.addEntity());
 
 Game::Game() {
 }
@@ -39,9 +46,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	player = new GameObject("assets/mario.png", renderer, 0, 0);
-	player2 = new GameObject("assets/luigi.png", renderer, 500, 0);
-
+	player = new GameObject("assets/mario.png", 0, 0);
+	player2 = new GameObject("assets/luigi.png", 500, 0);
+	map = new Map();
+	newPlayer.addComponent<PositionComponent>();
+	newPlayer.getComponent<PositionComponent>().setPos(500, 500);
 }
 
 void Game::handleEvents() {
@@ -65,14 +74,20 @@ void Game::update() {
 
 	player->Update();
 	player2->Update();
+	manager.update();
+	std::cout << newPlayer.getComponent<PositionComponent>().x() << "," <<
+		newPlayer.getComponent<PositionComponent>().y() << std::endl;
 
 }
 
 void Game::render() {
 
 	SDL_RenderClear(renderer);
+
+	map->DrawMap();
 	player->Render();
 	player2->Render();
+	
 	SDL_RenderPresent(renderer);
 
 }
