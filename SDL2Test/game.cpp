@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Map.h"
 #include "ECS/Components.h"
+#include "Vector.h"
 
 
 Map* map;
@@ -46,7 +47,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	map = new Map();
 	
-	player.addComponent<PositionComponent>(100,500);
+	player.addComponent<TransformComponent>();
 	player.addComponent<SpriteComponent>("assets/mario.png");
 }
 
@@ -71,7 +72,11 @@ void Game::update() {
 
 	manager.refresh();
 	manager.update();
-
+	player.getComponent<TransformComponent>().position.Add(Vector(5, 0));
+	if (player.getComponent <TransformComponent>().position.x > 100) {
+		player.getComponent <SpriteComponent>().setTexture("assets/luigi.png");
+	}
+	
 }
 
 void Game::render() {
