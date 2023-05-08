@@ -9,6 +9,10 @@ private:
 public:
 
 	Vector position;
+	Vector velocity;
+
+	int speed = 3;
+
 
 	TransformComponent() {
 		position.x = 0.0f;
@@ -24,8 +28,15 @@ public:
 		xpos = 0; ypos = 0;
 	}*/
 
-	
+	void init() override {
+		velocity.x = 0;
+		velocity.y = 0;
+	}
 
+	void update() override {
+		position.x += velocity.x * speed;
+		position.y += velocity.y * speed;
+	}
 	
 
 };
