@@ -4,7 +4,7 @@
 #include "Map.h"
 #include "ECS/Components.h"
 #include "Vector.h"
-
+#include "Collision.h"
 
 Map* map;
 
@@ -12,6 +12,7 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 Manager manager;
 auto& player(manager.addEntity());
+auto& wall(manager.addEntity());
 
 Game::Game() {
 }
@@ -48,9 +49,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	map = new Map();
 	
-	player.addComponent<TransformComponent>();
+	player.addComponent<TransformComponent>(0.0f, 0.0f, 256, 256, 2);
 	player.addComponent<SpriteComponent>("assets/mario.png");
 	player.addComponent<KeyboardController>();
+	player.addComponent<ColliderComponent>("player");
+
+	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+	wall.addComponent<SpriteComponent>("assets/dirt.png");
+	wall.addComponent<ColliderComponent>("wall");
 }
 
 void Game::handleEvents() {
@@ -74,6 +80,10 @@ void Game::update() {
 	manager.refresh();
 	manager.update();
 	
+	if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
+		wall.getComponent<ColliderComponent>().collider)) {
+		std::cout << "Wall hit." << std::endl;
+	}
 }
 
 void Game::render() {

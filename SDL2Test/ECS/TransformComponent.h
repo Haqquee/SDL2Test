@@ -11,6 +11,10 @@ public:
 	Vector position;
 	Vector velocity;
 
+	int height = 512;
+	int width = 512;
+	int scale = 1;
+
 	int speed = 3;
 
 
@@ -23,7 +27,21 @@ public:
 		position.x = x;
 		position.y = y;
 	}
-	
+
+	TransformComponent(int sc) {
+		position.x = 0.0f;
+		position.y = 0.0f;
+		scale = sc;
+	}
+
+	TransformComponent(float x, float y, int h, int w, int sc) {
+		position.x = x;
+		position.y = y;
+		height = h;
+		width = w;
+		scale = sc;
+	}
+
 	/*void init() override {
 		xpos = 0; ypos = 0;
 	}*/
