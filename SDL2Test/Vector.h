@@ -25,5 +25,8 @@ public:
 	Vector& operator*=(const Vector& vec);
 	Vector& operator/=(const Vector& vec);
 
+	Vector& operator*(const int& i);
+	Vector& zero();
+
 	friend std::ostream& operator<<(std::ostream&, const Vector& vec);
 };

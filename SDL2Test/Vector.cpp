@@ -66,6 +66,18 @@ Vector& Vector::operator/=(const Vector& vec) {
 	return this->Divide(vec);
 }
 
+Vector& Vector::operator*(const int& i) {
+	this->x *= i;
+	this->y *= i;
+	return *this;
+}
+
+Vector& Vector::zero() {
+	this->x = 0;
+	this->y = 0;
+	return *this;
+}
+
 std::ostream& operator<<(std::ostream& stream, const Vector& vec) {
 	stream << vec.x << ',' << vec.y;
 	return stream;

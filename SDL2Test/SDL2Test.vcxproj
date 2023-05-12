@@ -40,6 +40,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="ECS\SpriteComponent.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="ECS\TileComponent.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>

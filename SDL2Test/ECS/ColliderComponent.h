@@ -2,13 +2,13 @@
 #include <string>
 #include <SDL.h>
 #include "ECS.h"
+#include "Components.h"
 
 class ColliderComponent : public Component {
 
 public:
 	SDL_Rect collider;
 	std::string tag;
-
 	TransformComponent* transform;
 
 	ColliderComponent(std::string t) {
@@ -20,6 +20,7 @@ public:
 			entity->addComponent<TransformComponent>();
 		}
 		transform = &entity->getComponent<TransformComponent>();
+		Game::colliders.push_back(this);
 	}
 
 	void update() override {
