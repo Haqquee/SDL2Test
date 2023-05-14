@@ -57,8 +57,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	//map = new Map();
 	Map::LoadMap("assets/tilemap2.txt", 16, 16);
 
-	player.addComponent<TransformComponent>(1);
-	player.addComponent<SpriteComponent>("assets/mario.png");
+	player.addComponent<TransformComponent>(2);
+	player.addComponent<SpriteComponent>("assets/Idle.png", 5, 100);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(groupPlayers);
